@@ -2,23 +2,40 @@
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+
+        Label titleLabel;
+        Button startBtn;
+
 
         public MainPage()
         {
-            InitializeComponent();
+            titleLabel = new Label
+            {
+                Text = "Euroopa Riikid",
+                FontSize = 34,
+                HorizontalOptions = LayoutOptions.Center
+            };
+
+            startBtn = new Button
+            {
+                Text = "Alusta",
+                Command = new Command(async () =>
+                {
+                    await Navigation.PushAsync(new CountryPage());
+                })
+            };
+
+            Content = new VerticalStackLayout
+            {
+                Padding = 30,
+                Spacing = 20,
+                Children =
+                {
+                    titleLabel, startBtn
+                }
+            };
+
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
-        {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
-        }
     }
 }
